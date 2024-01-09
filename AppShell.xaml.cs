@@ -1,4 +1,6 @@
-﻿namespace BeConsistent;
+﻿using BeConsistent.Views;
+
+namespace BeConsistent;
 
 public partial class AppShell : Shell
 {
