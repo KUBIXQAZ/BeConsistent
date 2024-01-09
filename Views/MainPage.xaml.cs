@@ -1,4 +1,6 @@
-﻿using Microsoft.Maui.Controls.PlatformConfiguration;
+﻿using BeConsistent.Views;
+using CommunityToolkit.Maui.Views;
+using Microsoft.Maui.Controls.PlatformConfiguration;
 using Microsoft.Maui.Controls.Shapes;
 
 namespace BeConsistent;
@@ -66,19 +68,12 @@ public partial class MainPage : ContentPage
 		InitializeComponent();
 	}
 
-    private void AddTask(object sender, EventArgs args)
+    private async void AddTask(object sender, EventArgs args)
 	{
-		string text = "The term originally referred to messages sent using the Short Message Service. It has grown beyond alphanumeric";
-		string[] words = text.Split(' ');
-		foreach (string word in words)
-		{
-			Random random = new Random();
-			int num = random.Next(3, 20);
-			Console.WriteLine(num);
-			DateTime date = DateTime.Now.AddDays(-num);
+        AddTaskPopup addTaskPopup = new AddTaskPopup();
+		var answer = await this.ShowPopupAsync(addTaskPopup);
 
-            taskStackLayout.Add(Task.returnGUI(word, date));
-		}
+		if ((bool)answer == true) taskStackLayout.Add(Task.returnGUI(addTaskPopup.title, DateTime.Now));
     }
 }
 

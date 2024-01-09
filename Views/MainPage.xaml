@@ -2,14 +2,16 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BeConsistent.MainPage">
-    <ScrollView Padding="8" BackgroundColor="#191919">
+    <ScrollView Padding="8" 
+                BackgroundColor="#191919">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Button Grid.Row="0"
-                    Background="transparent" Text="ADD" 
+                    Background="transparent" 
+                    Text="ADD" 
                     BorderColor="#424242" 
                     BorderWidth="1"
                     TextColor="White"
