@@ -1,15 +1,17 @@
 ﻿using BeConsistent.Views;
 using Microsoft.Maui.Controls.Shapes;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace BeConsistent.Models
 {
+    [Serializable]
     public class TaskModel
     {
         public string title { set; get; }
         public DateTime startDate { get; set; }
 
-        public static TaskModel createTask(string title, DateTime startDate)
+        public static TaskModel CreateTask(string title, DateTime startDate)
         {
             TaskModel task = new TaskModel
             {
@@ -22,7 +24,7 @@ namespace BeConsistent.Models
             return task;
         }
 
-        public static StackLayout createGUI(string title, DateTime startDate, TaskModel task)
+        public static StackLayout CreateGUI(string title, DateTime startDate, TaskModel task)
         {
             StackLayout mainStackLayout = new StackLayout
             {
@@ -79,10 +81,17 @@ namespace BeConsistent.Models
             return mainStackLayout;
         }
 
-        public static StackLayout createGUIAndTask(string title, DateTime startDate)
+        private static void SaveTasks()
         {
-            TaskModel task = createTask(title, startDate);
-            StackLayout mainStackLayout = createGUI(title, startDate, task);
+            string json = JsonConvert.SerializeObject(App.tasks);
+            File.WriteAllText(App.filePath, json);
+        }
+
+        public static StackLayout CreateGUIAndTask(string title, DateTime startDate)
+        {
+            TaskModel task = CreateTask(title, startDate);
+            StackLayout mainStackLayout = CreateGUI(title, startDate, task);
+            SaveTasks();
 
             return mainStackLayout;
         }

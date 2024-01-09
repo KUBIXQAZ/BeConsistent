@@ -11,7 +11,7 @@ public partial class MainPage : ContentPage
 
 		foreach(TaskModel task in App.tasks)
 		{
-			taskStackLayout.Add(TaskModel.createGUI(task.title, task.startDate, task));
+			taskStackLayout.Add(TaskModel.CreateGUI(task.title, task.startDate, task));
 		}
 	}
 
@@ -24,7 +24,7 @@ public partial class MainPage : ContentPage
 		{
 			DateTime currDate = DateTime.Now;
 
-			StackLayout stackLayout = TaskModel.createGUIAndTask(addTaskPopup.title, currDate);
+			StackLayout stackLayout = TaskModel.CreateGUIAndTask(addTaskPopup.title, currDate);
 
             taskStackLayout.Add(stackLayout);
 		}
