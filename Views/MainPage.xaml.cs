@@ -8,12 +8,19 @@ public partial class MainPage : ContentPage
 	public MainPage()
 	{
 		InitializeComponent();
-
-		foreach(TaskModel task in App.tasks)
-		{
-			taskStackLayout.Add(TaskModel.CreateGUI(task.title, task.startDate, task));
-		}
 	}
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        taskStackLayout.Children.Clear();
+
+        foreach (TaskModel task in App.tasks)
+        {
+            taskStackLayout.Children.Add(TaskModel.CreateGUI(task.title, task.startDate, task));
+        }
+    }
 
     private async void AddTask(object sender, EventArgs args)
 	{

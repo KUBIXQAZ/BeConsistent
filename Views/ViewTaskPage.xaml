@@ -29,13 +29,26 @@
                    FontSize="25"
                    HorizontalOptions="End"></Label>
         </VerticalStackLayout>
-        <Button Grid.Row="2"
-                WidthRequest="200"
-                HeightRequest="50"
-                TextColor="White"
-                Text="Reset"
-                Background="transparent"
-                BorderColor="white"
-                BorderWidth="1"></Button>
+        <Grid Grid.Row="2"                 
+              WidthRequest="250"
+              HeightRequest="50" 
+              ColumnSpacing="4"
+              ColumnDefinitions="200,50">
+            <Button Grid.Column="0"
+                    TextColor="White"
+                    Text="Reset"
+                    Background="transparent"
+                    CornerRadius="10"
+                    BorderColor="white"
+                    BorderWidth="1"></Button>
+            <ImageButton Grid.Column="1"
+                         BorderColor="white"
+                         BorderWidth="1"
+                         Source="trash.svg"
+                         Aspect="Center"
+                         Clicked="RemoveTaskImageButton_Clicked"
+                         CornerRadius="10">
+            </ImageButton>
+        </Grid>
     </Grid>
 </ContentPage>

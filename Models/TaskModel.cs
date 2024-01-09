@@ -81,7 +81,7 @@ namespace BeConsistent.Models
             return mainStackLayout;
         }
 
-        private static void SaveTasks()
+        public static void SaveTasks()
         {
             string json = JsonConvert.SerializeObject(App.tasks);
             File.WriteAllText(App.filePath, json);
