@@ -1,15 +1,15 @@
 ﻿using BeConsistent.Views;
 using Microsoft.Maui.Controls.Shapes;
 using Newtonsoft.Json;
-using System.Text.Json;
 
 namespace BeConsistent.Models
 {
     [Serializable]
     public class TaskModel
     {
-        public string title { set; get; }
+        public string title { get; set; }
         public DateTime startDate { get; set; }
+        public List<DateTime> breaks = new List<DateTime>();
 
         public static TaskModel CreateTask(string title, DateTime startDate)
         {
