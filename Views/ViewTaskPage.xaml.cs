@@ -1,5 +1,6 @@
 using BeConsistent.Models;
 using Microsoft.Maui.Graphics;
+using System.Threading.Tasks;
 
 namespace BeConsistent.Views;
 
@@ -36,6 +37,9 @@ public partial class ViewTaskPage : ContentPage
 
         currentTask.startDate = date;
         currentTask.breaks.Add(date);
+
+        TimeSpan days = DateTime.Now - currentTask.startDate;
+        DaysLabel.Text = days.Days.ToString();
 
         TaskModel.SaveTasks();
     }
