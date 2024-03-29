@@ -1,6 +1,4 @@
 using BeConsistent.Models;
-using Microsoft.Maui.Graphics;
-using System.Threading.Tasks;
 
 namespace BeConsistent.Views;
 
@@ -41,20 +39,17 @@ public partial class ViewTaskPage : ContentPage
         TimeSpan days = DateTime.Now - currentTask.startDate;
         DaysLabel.Text = days.Days.ToString();
 
+        UpdateHistory();
+
         TaskModel.SaveTasks();
     }
 
-    private async void ShowBreaksButton_Clicked(object sender, EventArgs e)
+    private async void UpdateHistory()
     {
-        isShowingBreaks = !isShowingBreaks;
-
-        Button button = (Button)sender;
-
         BreaksList.Children.Clear();
-        if(isShowingBreaks == true)
+        if (isShowingBreaks == true)
         {
-            button.Text = "Hide breaks.";
-            if(currentTask.breaks != null)
+            if (currentTask.breaks != null)
             {
                 bool color = false;
                 foreach (DateTime date in currentTask.breaks)
@@ -67,7 +62,7 @@ public partial class ViewTaskPage : ContentPage
                         TextColor = textColor,
                         HorizontalOptions = LayoutOptions.Center,
                         Text = date.ToString(),
-                        Margin = new Thickness(0,0,0,10)
+                        Margin = new Thickness(0, 0, 0, 10)
                     };
                     BreaksList.Add(label);
                 }
@@ -75,9 +70,15 @@ public partial class ViewTaskPage : ContentPage
                 double height = scrollView.Height;
                 await scrollView.ScrollToAsync(0, height, true);
             }
-        } else
-        {
-            button.Text = "See breaks.";
         }
+    }
+
+    private void ShowBreaksButton_Clicked(object sender, EventArgs e)
+    {
+        Button button = (Button)sender;
+        isShowingBreaks = !isShowingBreaks;
+        if (isShowingBreaks == true) button.Text = "Hide breaks.";
+        button.Text = "See breaks.";
+        UpdateHistory();
     }
 }
