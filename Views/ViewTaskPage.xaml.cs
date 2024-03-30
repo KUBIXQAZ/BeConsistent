@@ -1,4 +1,5 @@
 using BeConsistent.Models;
+using System.Threading.Tasks;
 
 namespace BeConsistent.Views;
 
@@ -38,6 +39,8 @@ public partial class ViewTaskPage : ContentPage
 
         TimeSpan days = DateTime.Now - currentTask.startDate;
         DaysLabel.Text = days.Days.ToString();
+
+        DateLabel.Text = currentTask.startDate.ToString();
 
         UpdateHistory();
 
