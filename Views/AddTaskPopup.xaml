@@ -10,7 +10,8 @@
         <Label Text="Title:" 
                FontSize="30"></Label>
         <Entry VerticalOptions="Start" 
-               x:Name="titleEntry"></Entry>
+               x:Name="titleEntry"
+               TextChanged="titleEntry_TextChanged"></Entry>
         <Grid ColumnDefinitions="*,*"
               ColumnSpacing="10"
               Padding="0, 10, 0, 0">
@@ -25,7 +26,9 @@
                     Grid.Column="1" 
                     Clicked="Button_Clicked" 
                     TextColor="White" 
+                    x:Name="AddButton"
                     BorderColor="#424242" 
+                    IsEnabled="False"
                     BorderWidth="1" 
                     Background="transparent"></Button>
         </Grid>

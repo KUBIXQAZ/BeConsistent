@@ -1,5 +1,4 @@
 using BeConsistent.Models;
-using System.Threading.Tasks;
 
 namespace BeConsistent.Views;
 
@@ -8,8 +7,8 @@ public partial class ViewTaskPage : ContentPage
     TaskModel currentTask = null;
     bool isShowingBreaks = false;
 
-	public ViewTaskPage(TaskModel task)
-	{
+    public ViewTaskPage(TaskModel task)
+    {
 		InitializeComponent();
 
         currentTask = task;
@@ -19,43 +18,140 @@ public partial class ViewTaskPage : ContentPage
 
         TimeSpan days = DateTime.Now - task.startDate;
         DaysLabel.Text = days.Days.ToString();
+
+        ShowHideHistoryButton();
     }
 
-    private void RemoveTaskImageButton_Clicked(object sender, EventArgs e)
-    {
-        App.tasks.Remove(currentTask);
-        currentTask = null;
+    private bool isFirstClick2 = true;
+    private DateTime firstClickTime2;
+    private CancellationTokenSource cancellationTokenSource2;
+    private int waitTime2 = 2000;
 
-        TaskModel.SaveTasks();
-        App.Current.MainPage.Navigation.PopToRootAsync();
+    private async void RemoveTaskImageButton_Clicked(object sender, EventArgs e)
+    {
+        var button = DeleteTaskButton;
+
+        var oldBack = button.Background;
+
+        if (isFirstClick2)
+        {
+            cancellationTokenSource2 = new CancellationTokenSource();
+
+            isFirstClick2 = false;
+            firstClickTime2 = DateTime.Now;
+
+            button.Background = Colors.Red;
+
+            try
+            {
+                await Task.Delay(waitTime2, cancellationTokenSource2.Token);
+            }
+            catch { }
+
+            button.Background = oldBack;
+
+            if ((DateTime.Now - firstClickTime2).TotalMilliseconds >= waitTime2)
+            {
+                isFirstClick2 = true;
+            }
+        }
+        else
+        {
+            cancellationTokenSource2.Cancel();
+
+            button.Background = oldBack;
+
+            App.tasks.Remove(currentTask);
+            currentTask = null;
+
+            TaskModel.SaveTasks();
+            App.Current.MainPage.Navigation.PopToRootAsync();
+
+            isFirstClick2 = true;
+        }
     }
 
-    private void ResetDateButton_Clicked(object sender, EventArgs e)
+    private bool isFirstClick = true;
+    private DateTime firstClickTime;
+    private CancellationTokenSource cancellationTokenSource;
+    private int waitTime = 2000;
+
+    private async void ResetDateButton_Clicked(object sender, EventArgs e)
     {
-        DateTime date = DateTime.Now;
+        var button = ResetButton;
 
-        currentTask.startDate = date;
-        currentTask.breaks.Add(date);
+        var oldBack = button.Background;
+        var oldText = button.Text;
 
-        TimeSpan days = DateTime.Now - currentTask.startDate;
-        DaysLabel.Text = days.Days.ToString();
+        if (isFirstClick)
+        {
+            cancellationTokenSource = new CancellationTokenSource();
 
-        DateLabel.Text = currentTask.startDate.ToString();
+            isFirstClick = false;
+            firstClickTime = DateTime.Now;
 
-        UpdateHistory();
+            button.Background = Colors.Red;
+            button.Text = "Confirm";
 
-        TaskModel.SaveTasks();
+            try
+            {
+                await Task.Delay(waitTime, cancellationTokenSource.Token);
+            }
+            catch { }
+
+            button.Background = oldBack;
+            button.Text = oldText;
+
+            if ((DateTime.Now - firstClickTime).TotalMilliseconds >= waitTime)
+            {
+                isFirstClick = true;
+            }
+        }
+        else
+        {
+            cancellationTokenSource.Cancel();
+
+            button.Background = oldBack;
+            button.Text = oldText;
+
+            DateTime date = DateTime.Now;
+
+            currentTask.startDate = date;
+            currentTask.breaks.Add(date);
+
+            TimeSpan days = DateTime.Now - currentTask.startDate;
+            DaysLabel.Text = days.Days.ToString();
+
+            DateLabel.Text = currentTask.startDate.ToString();
+
+            UpdateHistory();
+            ShowHideHistoryButton();
+
+            TaskModel.SaveTasks();
+
+            isFirstClick = true;
+        }
+    }
+
+    private void ShowHideHistoryButton()
+    {
+        if(currentTask.breaks.Count == 0) HistoryButton.IsVisible = false;
+        else HistoryButton.IsVisible = true;
     }
 
     private async void UpdateHistory()
     {
         BreaksList.Children.Clear();
+
+        var breaks = new List<DateTime>(currentTask.breaks);
+        breaks.Reverse();
+
         if (isShowingBreaks == true)
         {
-            if (currentTask.breaks != null)
+            if (breaks != null)
             {
                 bool color = false;
-                foreach (DateTime date in currentTask.breaks)
+                foreach (DateTime date in breaks)
                 {
                     color = !color;
                     Color textColor = color ? Color.FromHex("#C3C3C3") : Color.FromHex("#a1a1a1");

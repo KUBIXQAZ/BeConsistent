@@ -9,7 +9,7 @@ public partial class AddTaskPopup : Popup
 	public AddTaskPopup()
 	{
 		InitializeComponent();
-	}
+    }
 
     private void Button_Clicked(object sender, EventArgs e)
     {
@@ -21,4 +21,15 @@ public partial class AddTaskPopup : Popup
 	{
 		Close(false);
 	}
+
+    private void titleEntry_TextChanged(object sender, TextChangedEventArgs e)
+    {
+		CheckForUpdates();
+    }
+
+	private void CheckForUpdates()
+	{
+		if(titleEntry.Text.Length > 0) AddButton.IsEnabled = true;
+		else AddButton.IsEnabled = false;
+    }
 }

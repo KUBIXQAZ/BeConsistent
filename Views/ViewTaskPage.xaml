@@ -42,16 +42,19 @@
                     Text="Reset"
                     Clicked="ResetDateButton_Clicked"
                     Background="transparent"
+                        x:Name="ResetButton"
                     CornerRadius="10"
                     BorderColor="white"
                     BorderWidth="1"></Button>
                 <ImageButton Grid.Column="1"
-                         BorderColor="white"
-                         BorderWidth="1"
-                         Source="trash.svg"
-                         Aspect="Center"
-                         Clicked="RemoveTaskImageButton_Clicked"
-                         CornerRadius="10">
+                             BorderColor="white"
+                             x:Name="DeleteTaskButton"
+                             BorderWidth="1"
+                             Source="trash.svg"
+                             Background="Transparent"
+                             Aspect="Center"
+                             Clicked="RemoveTaskImageButton_Clicked"
+                             CornerRadius="10">
                 </ImageButton>
             </Grid>
             <VerticalStackLayout Grid.Row="3">
@@ -59,6 +62,7 @@
                         Background="transparent"
                         TextColor="#C3C3C3"
                         HorizontalOptions="Center"
+                        x:Name="HistoryButton"
                         Clicked="ShowBreaksButton_Clicked"></Button>
                 <VerticalStackLayout x:Name="BreaksList">
                 </VerticalStackLayout>
