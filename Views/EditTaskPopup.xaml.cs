@@ -6,9 +6,11 @@ public partial class EditTaskPopup : Popup
 {
 	public string title = null;
 
-	public EditTaskPopup()
+	public EditTaskPopup(string title)
 	{
 		InitializeComponent();
+
+		titleEntry.Text = title;
     }
 
     private void Button_Clicked(object sender, EventArgs e)

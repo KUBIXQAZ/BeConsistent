@@ -185,7 +185,7 @@ public partial class ViewTaskPage : ContentPage
 
     private async void ImageButton_Clicked(object sender, EventArgs e)
     {
-        EditTaskPopup editTaskPopup = new EditTaskPopup();
+        EditTaskPopup editTaskPopup = new EditTaskPopup(currentTask.title);
         var answer = await this.ShowPopupAsync(editTaskPopup);
 
         if ((bool)answer == true)
