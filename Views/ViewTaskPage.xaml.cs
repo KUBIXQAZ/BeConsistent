@@ -1,4 +1,6 @@
 using BeConsistent.Models;
+using CommunityToolkit.Maui.Views;
+using System.Threading.Tasks;
 
 namespace BeConsistent.Views;
 
@@ -179,5 +181,22 @@ public partial class ViewTaskPage : ContentPage
         if (isShowingBreaks == true) button.Text = "Hide breaks.";
         button.Text = "See breaks.";
         UpdateHistory();
+    }
+
+    private async void ImageButton_Clicked(object sender, EventArgs e)
+    {
+        EditTaskPopup editTaskPopup = new EditTaskPopup();
+        var answer = await this.ShowPopupAsync(editTaskPopup);
+
+        if ((bool)answer == true)
+        {
+            int index = App.tasks.IndexOf(currentTask);
+
+            App.tasks[index].title = editTaskPopup.title;
+
+            titleLabel.Text = App.tasks[index].title;
+
+            TaskModel.SaveTasks();
+        }
     }
 }

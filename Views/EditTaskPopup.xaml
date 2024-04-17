@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mct:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+           xmlns:mct="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui"
+           x:Class="BeConsistent.Views.EditTaskPopup"
+           CanBeDismissedByTappingOutsideOfPopup="False">
+    <VerticalStackLayout BackgroundColor="#202020"
+                         WidthRequest="300"
+                         Padding="30">
+        <Label Text="Title:" 
+               FontSize="30"></Label>
+        <Entry VerticalOptions="Start" 
+               x:Name="titleEntry"
+               TextChanged="titleEntry_TextChanged"></Entry>
+        <Grid ColumnDefinitions="*,*"
+              ColumnSpacing="10"
+              Padding="0, 10, 0, 0">
+            <Button Text="Cancel" 
+                    Grid.Column="0" 
+                    Clicked="CancelButton_Clicked" 
+                    TextColor="White" 
+                    BorderColor="#424242" 
+                    BorderWidth="1" 
+                    Background="transparent"></Button>
+            <Button Text="Edit" 
+                    Grid.Column="1" 
+                    Clicked="Button_Clicked" 
+                    TextColor="White" 
+                    x:Name="AddButton"
+                    BorderColor="#424242" 
+                    IsEnabled="False"
+                    BorderWidth="1" 
+                    Background="transparent"></Button>
+        </Grid>
+    </VerticalStackLayout>
+</mct:Popup>

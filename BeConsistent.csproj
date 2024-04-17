@@ -48,6 +48,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\pen.svg" />
 	  <None Remove="Resources\Images\trash.svg" />
 	</ItemGroup>
 
@@ -58,12 +59,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\EditTaskPopup.xaml.cs">
+	    <DependentUpon>EditTaskPopup.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\AddTaskPopup.xaml.cs">
 	    <DependentUpon>AddTaskPopup.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\EditTaskPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\AddTaskPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
